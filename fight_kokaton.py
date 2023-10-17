@@ -141,7 +141,11 @@ def main():
                     #撃墜=Noneにする
                     beam = None
                     bomb = None
-
+                    bird.change_img(6, screen)
+                    pg.display.update()
+                    time.sleep(1)
+                    return
+                 
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         if bomb is not None:
@@ -180,6 +184,7 @@ class Beam:
 
         self.rct.move_ip(self.vx, self.vy)
         screen.blit(self.img, self.rct)
+
 
 
 
