@@ -26,7 +26,7 @@ def check_bound(obj_rct: pg.Rect) -> tuple[bool, bool]:
 
 class Bird:
     """
-    ゲームキャラクター（こうかとん）に関するクラスhttps://github.com/KatsuyaUno/ProjExD_03
+    ゲームキャラクター（こうかとん）に関するクラス
     """
     delta = {  # 押下キーと移動量の辞書
         pg.K_UP: (0, -5),
@@ -136,6 +136,7 @@ def main():
     bird = Bird(3, (900, 400))
     bombs = [Bomb() for _ in range(NUM_OF_BOMBS)]
     beam = None
+    score = Score()
 
     clock = pg.time.Clock()
     tmr = 0
@@ -149,6 +150,7 @@ def main():
                 beam = Beam(bird)
                 
         screen.blit(bg_img, [0, 0])
+        score.update(screen)
         
         for bomb in bombs:
             if bird.rct.colliderect(bomb.rct):
@@ -165,6 +167,8 @@ def main():
                     beam = None
                     bombs[i] = None
                     bird.change_img(6, screen)
+                    score.score+=1
+
                     pg.display.update()
         bombs = [bomb for bomb in bombs if bomb is not None]
                  
@@ -207,6 +211,25 @@ class Beam:
         self.rct.move_ip(self.vx, self.vy)
         screen.blit(self.img, self.rct)
 
+
+class Score:
+    """
+    score実装クラス
+    """
+    def __init__(self): 
+        self.font = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
+        self.score=0
+        self.img=self.font.render(f"score:{self.score}", 0, (0,0,255))
+        self.rct = self.img.get_rect()
+        self.rct.x = 200
+        self.rct.y = 770
+        
+        
+    def update(self ,screen: pg.Surface):
+        self.img=self.font.render(f"score:{self.score}", 0, (0,0,255))
+        screen.blit(self.img, self.rct)
+        
+        
 
 
 
