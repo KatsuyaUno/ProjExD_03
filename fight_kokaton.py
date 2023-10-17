@@ -115,6 +115,15 @@ class Bomb:
         self.vx = random.choice(__class__.directions)
         self.vy = random.choice(__class__.directions)
 
+    def change_img(self, screen: pg.Surface):
+        """
+        bomb画像を切り替え，画面に転送する
+        引数1 num：bomb画像ファイル名の番号
+        引数2 screen：画面Surface
+        """
+        self.img = pg.transform.rotozoom(pg.image.load(f"ex03/fig/explosion.gif"), 0, 2.0)
+        screen.blit(self.img, self.rct)
+
     def update(self, screen: pg.Surface):
         """
         爆弾を速度ベクトルself.vx, self.vyに基づき移動させる
@@ -169,6 +178,7 @@ def main():
                     beam = None
                     bombs[i] = None
                     bird.change_img(6, screen)
+                    bomb.change_img(screen)
                     score.score+=1
 
                     pg.display.update()
