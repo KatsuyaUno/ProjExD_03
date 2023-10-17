@@ -231,10 +231,6 @@ class Score:
         self.img=self.font.render(f"score:{self.score}", 0, (0,0,255))
         screen.blit(self.img, self.rct)
         
-        
-
-
-
 if __name__ == "__main__":
     pg.init()
     main()
