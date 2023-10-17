@@ -239,7 +239,24 @@ class Score:
     def update(self ,screen: pg.Surface):
         self.img=self.font.render(f"score:{self.score}", 0, (0,0,255))
         screen.blit(self.img, self.rct)
-        
+
+
+class Explosion:
+    def init(self, screen: pg.Surface):
+        """
+        bomb画像を切り替え，画面に転送する
+        引数1 num：bomb画像ファイル名の番号
+        引数2 screen：画面Surface
+        """
+        self.img = pg.transform.rotozoom(pg.image.load(f"ex03/fig/explosion.gif"), 0, 2.0)
+        self.img2 = pg.transform.rotozoom(pg.image.load(f"ex03/fig/explosion.gif"), 1, 2.0)
+        screen.blit(self.img, self.rct)
+        life=2
+
+    def update(self ,screen: pg.Surface):
+        self.img = pg.transform.rotozoom(pg.image.load(f"ex03/fig/explosion.gif"), 0, 2.0)
+        screen.blit(self.img, self.rct)
+
         
 
 
