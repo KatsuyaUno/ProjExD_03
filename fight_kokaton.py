@@ -216,6 +216,7 @@ class Beam:
 class Score:
     """
     score実装クラス
+    爆弾をビームで消去した際にスコアを加算する
     """
     def __init__(self): 
         self.font = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
