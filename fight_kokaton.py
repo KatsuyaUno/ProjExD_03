@@ -137,6 +137,7 @@ def main():
     bombs = [Bomb() for _ in range(NUM_OF_BOMBS)]
     beam = None
     score = Score()
+    multi = []
 
     clock = pg.time.Clock()
     tmr = 0
@@ -148,6 +149,7 @@ def main():
             if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
                 #キーが押されてかつ、そのキーがスペースキーならば
                 beam = Beam(bird)
+                multi.append(beam)
                 
         screen.blit(bg_img, [0, 0])
         score.update(screen)
@@ -161,7 +163,7 @@ def main():
                 return
         
         for i, bomb in enumerate(bombs):
-            if beam is not None:
+            for beam in multi:
                  if beam.rct.colliderect(bomb.rct): #ビームと爆弾の衝突判定
                     #撃墜=Noneにする
                     beam = None
@@ -176,7 +178,7 @@ def main():
         bird.update(key_lst, screen)
         for bomb in bombs:
             bomb.update(screen)
-        if beam is not None:
+        for beam in multi:
             beam.update(screen)
         pg.display.update()
         tmr += 1
@@ -193,7 +195,6 @@ class Beam:
         beam画像Surfaceを生成する
         引数1 bird：こうかとんインスタンス(birdクラスのインスタンス)
         """
-        
         self.img=pg.image.load(f"ex03/fig/beam.png")
         self.rct = self.img.get_rect()
         bird.rct.centerx  #こうかとんの中心横座標
